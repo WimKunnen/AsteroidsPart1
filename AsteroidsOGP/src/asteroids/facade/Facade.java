@@ -62,28 +62,28 @@ public class Facade implements IFacade {
     /**
      * Returns an array of doubles of the ship's current position.
      */
-    public double[] getShipPosition(Ship ship) throws ModelException {
-        return new double[]{ship.getPosition().getX(), ship.getPosition().getY()};
+    public double[] getShipPosition(Ship ship){
+        return ship.getPosition().getValues();
     }
 
     /**
      * Returns an array of doubles of the ship's current velocity.
      */
-    public double[] getShipVelocity(Ship ship) throws ModelException {
-        return new double[]{ship.getVelocity().getX(), ship.getVelocity().getY()};
+    public double[] getShipVelocity(Ship ship){
+        return ship.getVelocity().getValues();
     }
 
     /**
      * Returns the ship's radius.
      */
-    public double getShipRadius(Ship ship) throws ModelException {
+    public double getShipRadius(Ship ship){
         return ship.getRadius();
     }
 
     /**
      * Returns the ship's current heading.
      */
-    public double getShipOrientation(Ship ship) throws ModelException {
+    public double getShipOrientation(Ship ship) {
         return ship.getHeading();
     }
 
@@ -117,7 +117,9 @@ public class Facade implements IFacade {
      * @param   amount
      *          The given factor by which the speed will be increased.
      */
-    public void thrust(Ship ship, double amount) throws ModelException {ship.thrust(amount);}
+    public void thrust(Ship ship, double amount){
+        ship.thrust(amount);
+    }
 
     /**
      * Changes the heading of the ship by the given angle.
@@ -128,7 +130,9 @@ public class Facade implements IFacade {
      * @param   angle
      *          The angle by which the ship's heading will be changed.
      */
-    public void turn(Ship ship, double angle) throws ModelException {ship.turn(angle);}
+    public void turn(Ship ship, double angle){
+        ship.turn(angle);
+    }
 
     /**
      * Returns the distance between the two given ships.
@@ -186,7 +190,7 @@ public class Facade implements IFacade {
     public double[] getCollisionPosition(Ship ship1, Ship ship2) throws ModelException {
         try {
             Vector collisionPosition = ship1.getCollisionPosition(ship2);
-            return collisionPosition == null ? null : new double[]{collisionPosition.getX(), collisionPosition.getY()};
+            return collisionPosition == null ? null : ship1.getCollisionPosition(ship2).getValues();
         } catch (IllegalArgumentException e) {
             throw new ModelException(e);
         }
