@@ -121,7 +121,7 @@ public class Ship {
     public Ship(){
 
         this.setPosition(new Vector());
-        this.radius = this.minimumRadius;
+        this.radius = minimumRadius;
         this.setMaximumVelocity(this.speedOfLight);
         this.setVelocity(new Vector());
         this.setHeading(0);
@@ -294,15 +294,16 @@ public class Ship {
      *          If the given velocity is smaller than zero, the velocity is unchanged.
      */
     public void thrust(double addedVelocitySize){
+        if (addedVelocitySize < 0) {
+            addedVelocitySize = 0;
+        }
         Vector addedVelocity = new Vector(addedVelocitySize * Math.cos(this.getHeading()),
                 addedVelocitySize * Math.sin(this.getHeading()));
         Vector newVelocity = this.velocity.sum(addedVelocity);
-        if(addedVelocity.vectorLengthSquared() >= 0){
-            this.setVelocity(newVelocity);
-        }else{
-            this.thrust(0);
+        this.setVelocity(newVelocity);
+
+
         }
-    }
 
     // Heading
 
@@ -383,7 +384,7 @@ public class Ship {
      * @param   radius
      *          The radius which validity will be checked.
      */
-    public boolean isValidRadius(double radius){return (radius >= minimumRadius || Double.isNaN(radius));}
+    public boolean isValidRadius(double radius){return (radius >= minimumRadius && !Double.isNaN(radius));}
 
     // Collision detection
     /**
@@ -401,8 +402,8 @@ public class Ship {
         if(other != null){
             double xDifference = (this.getPosition().getX() - other.getPosition().getX());
             double yDifference = (this.getPosition().getY() - other.getPosition().getY());
-            double radiusDifference = this.getRadius() + other.getRadius();
-            return Math.sqrt( xDifference * xDifference + yDifference * yDifference) - radiusDifference;
+            double radiusSum = this.getRadius() + other.getRadius();
+            return Math.sqrt( xDifference * xDifference + yDifference * yDifference) - radiusSum;
         }else{
             throw new IllegalArgumentException("Not an existing ship!");
         }
@@ -440,9 +441,8 @@ public class Ship {
         try {
             Vector deltaV = this.deltaV(other);
             Vector deltaR = this.deltaR(other);
-            double sigma = this.getRadius() + other.getRadius();
-            double d = deltaV.scalarProduct(deltaR) * deltaV.scalarProduct(deltaR)
-                    - deltaV.scalarProduct(deltaV) * (deltaR.scalarProduct(deltaR) - sigma * sigma);
+            double sigma = this.sigma(other);
+            double d = d(deltaV, deltaR, sigma);
 
             return  !(deltaV.scalarProduct(deltaR) >= 0 || d <= 0 || this.overlap(other));
 
@@ -466,12 +466,12 @@ public class Ship {
 
     public double getTimeToCollision(Ship other) throws NullPointerException{
         try {
-            Vector deltaV = this.deltaV(other);
-            Vector deltaR = this.deltaR(other);
-            double sigma = this.sigma(other);
-            double d = this.d(deltaV, deltaR, sigma);
-
             if (this.willCollide(other)) {
+                Vector deltaV = this.deltaV(other);
+                Vector deltaR = this.deltaR(other);
+                double sigma = this.sigma(other);
+                double d = this.d(deltaV, deltaR, sigma);
+
                 return -(deltaV.scalarProduct(deltaR) + Math.sqrt(d)) / deltaV.scalarProduct(deltaV);
             } else {
                 return Double.POSITIVE_INFINITY;
