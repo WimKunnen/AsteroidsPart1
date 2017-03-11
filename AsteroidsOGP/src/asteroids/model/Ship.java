@@ -11,7 +11,7 @@ import be.kuleuven.cs.som.taglet.*;
  * 		    | isValidAngle()
  *
  * @invar   The velocity of a ship is always smaller than or equal to the speed of light.
- * 		    |getVelocity <= speedOfLight
+ * 		    | velocity.vectorLength <= speedOfLight
  *
  * @invar   The radius will always be greater or equal to th minimum radius.
  *          | isValidRadius()
@@ -26,7 +26,7 @@ import be.kuleuven.cs.som.taglet.*;
  *  Wim Kunnen:     Studies: Ingenieurswetenschappen: Elektrotechniek - Computer Wetenschappen.
  *  Maarten Doclo:  Studies: Ingenieurswetenschappen: Computer Wetenschappen - Elektrotechniek.
  *
- *  This Java class was created for the Asteroids Part 1 assignment for the course Objectgericht Programmeren
+ *  This Java class was created for the Asteroids Part 1 assignment for the course Objectoriented Programming
  *  given by Prof. dr. ir. E. Steegmans.
  *
  *  The code for this assignment can also be found at our public Github Repository:
@@ -136,7 +136,7 @@ public class Ship {
      * @post    The position is set to the new position.
      *          |new.getPosition == newPosition
      */
-    @Basic
+
     @Model
     private void setPosition(Vector newPosition){
         this.position = newPosition;
@@ -178,10 +178,16 @@ public class Ship {
     private boolean isValidTimeDifference(double timeDifference){return timeDifference >= 0;}
 
     //Velocity:
+    /**
+     * Constant registering the speed of light which equals 300 000 km/s.
+     */
     private final double speedOfLight = 300000;
 
     private final double speedOfLightSquared = speedOfLight*speedOfLight;
 
+    /**
+     * Variable registering the maximum velocity of this ship.
+     */
     private double maximumVelocity;
 
     private double maximumVelocitySquared;
@@ -224,7 +230,7 @@ public class Ship {
      *          |   this.maximumVelocitySquared = 0
      *          Thus the square of the maximum velocity changes accordingly.
      */
-    @Basic
+
     public void setMaximumVelocity(double velocity){
         if(velocity <= speedOfLight && 0 <= velocity) {
             this.maximumVelocity = velocity;
@@ -256,7 +262,7 @@ public class Ship {
      *          the new total velocity is set at the maximum velocity, but the new direction of the velocity remains unaltered.
      *
      */
-    @Basic
+
     @Model
     private void setVelocity(Vector velocity){
         this.velocity = velocity.vectorLengthSquared() > this.getMaximumVelocitySquared()
@@ -294,6 +300,10 @@ public class Ship {
     }
 
     // Heading
+
+    /**
+     * Varialbe registering the orientation of this ship.
+     */
     private double heading;
 
     /**
@@ -311,7 +321,7 @@ public class Ship {
      * @pre     The angle must be a valid angle.
      *          | isValidAngle(angle)
      */
-    @Basic
+
     @Model
     private void setHeading(double angle) {
         assert isValidAngle(angle);
@@ -345,8 +355,14 @@ public class Ship {
     }
 
     //Radius
-    private double minimumRadius = 10;
+    /**
+     * Variable registering the minimum radius of all ships.
+     */
+    private static double minimumRadius = 10;
 
+    /**
+     * Variable registering the radius of this ship.
+     */
     private final double radius;
 
     /**
@@ -362,7 +378,7 @@ public class Ship {
      * @param   radius
      *          The radius which validity will be checked.
      */
-    public boolean isValidRadius(double radius){return (radius >= this.minimumRadius || Double.isNaN(radius));}
+    public boolean isValidRadius(double radius){return (radius >= minimumRadius || Double.isNaN(radius));}
 
     // Collision detection
     /**
@@ -375,7 +391,7 @@ public class Ship {
      *          The other ship does not exist.
      *          | other == null
      */
-    @Basic
+
     public double getDistanceBetween(Ship other) throws IllegalArgumentException{
         if(other != null){
             double xDifference = (this.getPosition().getX() - other.getPosition().getX());
@@ -442,7 +458,7 @@ public class Ship {
      *        The other ship does not exist
      *        | other == null
      */
-    @Basic
+
     public double getTimeToCollision(Ship other) throws NullPointerException{
         try {
             Vector deltaV = this.deltaV(other);
@@ -471,7 +487,7 @@ public class Ship {
      *          The other ship does not exist
      *          | other == null
      */
-    @Basic
+
     public Vector getCollisionPosition(Ship other) throws IllegalArgumentException {
         try {
             Vector deltaV = this.deltaV(other);

@@ -37,8 +37,14 @@ public class Vector {
         this.y = 0;
     }
 
+    /**
+     * Variable registering the x component of this vector.
+     */
     private final double x;
 
+    /**
+     * Variable registering the y component of this vector.
+     */
     private final double y;
 
     /**
