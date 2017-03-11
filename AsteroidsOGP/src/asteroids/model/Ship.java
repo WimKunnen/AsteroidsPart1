@@ -321,8 +321,9 @@ public class Ship {
      *          | new.getHeading() == (this.getHeading + angle) % 2 * Math.PI
      */
     public void turn(double angle) {
-        assert isValidAngle(Math.abs((this.getHeading() + angle) % (2 * Math.PI)));
-        this.setHeading(Math.abs((this.getHeading() + angle) % (2 * Math.PI)));
+        double newAngle = Math.abs((this.getHeading() + angle) % (2 * Math.PI));
+        assert isValidAngle(newAngle);
+        this.setHeading(newAngle);
     }
 
     //Radius
