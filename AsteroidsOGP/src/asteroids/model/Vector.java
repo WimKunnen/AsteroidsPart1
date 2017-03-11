@@ -62,6 +62,8 @@ public class Vector {
     /**
      * Returns the scalar product of two vectors.
      *
+     * @param   other
+     *          The other vector which will be used to calculate a scalar product of two vectors.
      */
     @Basic
     public double scalarProduct(Vector other){
@@ -87,6 +89,9 @@ public class Vector {
     /**
      * Returns the sum of two vectors.
      * | return new Vector(this.getX() + other.getX(), this.getY() + other.getY())
+     *
+     * @param   other
+     *          The other vector which will be used to calculate the sum of two vectors.
      */
     @Basic
     public Vector sum(Vector other){

@@ -4,6 +4,7 @@ package asteroids.tests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.*;
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 
 import asteroids.model.Ship;
 
@@ -19,7 +20,7 @@ import asteroids.model.Ship;
 public class TestShip {
 
 	private static final double EPSILON = 0.0001;
-	
+
 	private Ship ship1;
 	private Ship ship2;
 	private Ship ship3;
@@ -117,7 +118,7 @@ public class TestShip {
 	@Test(expected=IllegalArgumentException.class)
 	public void radius_IllegalCase() throws Exception {
 		ship1 = new Ship(1.5,15.0,10.0,20.0,5.0,Math.PI);
-				
+
 	}
 
 	/**
@@ -148,7 +149,7 @@ public class TestShip {
 	 * It involves the Ship ship2 and a time difference.
 	 * The test only tests legal outcomes of the move() method.
 	 */
-	@Test 
+	@Test
 	public void move_LegalCase() {
 		ship2.move(10);
 		assertEquals(100.0,ship2.getPosition().getX(),EPSILON);
@@ -178,7 +179,7 @@ public class TestShip {
 		ship2.thrust(10);
 		assertEquals(20.0,ship2.getVelocity().getX(),EPSILON);
 		assertEquals(10.0,ship2.getVelocity().getY(),EPSILON);
-		
+
 	}
 
 	/**
@@ -194,7 +195,7 @@ public class TestShip {
 	 * A test suit which tests the overlap() method from the Ship class.
 	 * It involves the Ships ship1 and ship2.
 	 */
-	@Test 
+	@Test
 	public void testOverlap() {
 		assertFalse(ship2.overlap(ship3));
 		assertTrue(ship2.overlap(ship4));
@@ -230,5 +231,4 @@ public class TestShip {
 		assertEquals(70.0,ship3.getCollisionPosition(ship4).getX(), EPSILON);
 		assertEquals(0.0, ship3.getCollisionPosition(ship4).getY(),EPSILON);
 	}
-
 }

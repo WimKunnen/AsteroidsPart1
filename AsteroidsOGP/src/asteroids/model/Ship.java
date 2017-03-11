@@ -15,9 +15,21 @@ import be.kuleuven.cs.som.annotate.*;
  * @invar   The radius will always be greater or equal to th minimum radius.
  *          | isValidRadius()
  *
+ *
  * @author  Wim Kunnen and Maarten Doclo
  *
  * @version 1.1
+ *
+ *
+ * About the authors and the software:
+ *  Wim Kunnen:     Studies: Ingenieurswetenschappen: Elektrotechniek - Computer Wetenschappen.
+ *  Maarten Doclo:  Studies: Ingenieurswetenschappen: Computer Wetenschappen - Elektrotechniek.
+ *
+ *  This Java class was created for the Asteroids Part 1 assignment for the course Objectgericht Programmeren
+ *  given by Prof. dr. ir. E. Steegmans.
+ *
+ *  The code for this assignment can also be found at our public Github Repository:
+ *  https://github.com/WimKunnen/AsteroidsPart1
  */
 
 public class Ship {
@@ -52,7 +64,7 @@ public class Ship {
      * @post    The new velocity along the x axis is equal to velocityX.
      *          | new.getVelocity.getX() == velocityX
      *
-     * @post    The new velocity along the y axis is equal to velocityy.
+     * @post    The new velocity along the y axis is equal to velocityY.
      *          | new.getVelocity.getY() == velocityY
      *
      * @post    The new radius is equal to radius.
@@ -81,6 +93,21 @@ public class Ship {
 
     /**
      * Default initializer for the Ship class.
+     *
+     * @post    The new x coordinate is equal to 0.
+     *          | new.getPosition.getX() == 0
+     *
+     * @post    The new y coordinate is equal to 0.
+     *          | new.getPosition.getY() == 0
+     *
+     * @post    The new velocity along the x axis is equal to 0.
+     *          | new.getVelocity.getX() == 0
+     *
+     * @post    The new velocity along the y axis is equal to 0.
+     *          | new.getVelocity.getY() == 0
+     *
+     * @post    The new radius is equal to the minimum radius.
+     *          | new.getRadius() == this.minimumRadius
      */
     public Ship(){
 
@@ -93,7 +120,6 @@ public class Ship {
     }
 
     //Position:
-    //TODO check defensive style!
     private double coordX;
 
     private double coordY;
@@ -120,8 +146,6 @@ public class Ship {
     public Vector getPosition(){return position;}
 
     //Move
-    //TODO Implement defensive style!
-
     /**
      * Changes the position of the ship by the velocity * time difference.
      *
@@ -143,12 +167,12 @@ public class Ship {
     /**
      * Returns true if and only if the given time difference is nonnegative.
      *
+     * @param   timeDifference
+     *          The difference in time between two moments used in the thrust() method.
      */
     private boolean isValidTimeDifference(double timeDifference){return timeDifference >= 0;}
 
     //Velocity:
-    //TODO check total style!
-
     private final double speedOfLight = 300000;
 
     private final double speedOfLightSquared = speedOfLight*speedOfLight;
@@ -229,12 +253,13 @@ public class Ship {
                 ? velocity.normalize().resizeVector(maximumVelocity) :  velocity;
     }
 
+    /**
+     * Returns the velocity vector.
+     */
     @Basic
     public Vector getVelocity(){
         return this.velocity;
     }
-
-    //TODO check total style!
 
     /**
      * The current velocity is increased by the added velocity.
@@ -259,8 +284,6 @@ public class Ship {
     }
 
     // Heading
-    // TODO check nominal style!
-
     private double heading;
 
     /**
@@ -272,12 +295,11 @@ public class Ship {
     /**
      * Set the heading at the given angle.
      *
-     *
      * @param   angle
      *          The angle at which the new heading will be set.
      *
      * @pre     The angle must be a valid angle.
-     *          |isValidAngle(angle)
+     *          | isValidAngle(angle)
      */
     @Basic
     @Model
@@ -297,8 +319,6 @@ public class Ship {
      */
     public boolean isValidAngle(double angle){return ((angle < 2 * Math.PI) && (0 <= angle));}
 
-    //TODO check nominal style!
-
     /**
      * Increases the heading of the ship by a given angle.
      *
@@ -311,18 +331,11 @@ public class Ship {
      * @post    If the new angle is greater than 2 * PI or smaller than 0, it is changed to an angle between 0 and 2 * PI.
      */
     public void turn(double angle) {
-        if (isValidAngle(this.getHeading() + angle)) {
-            this.setHeading(this.getHeading() + angle);
-        } else if (this.getHeading() + angle >= 2 * Math.PI) {
-            this.turn(angle - 2 * Math.PI);
-        } else if (0 > this.getHeading() + angle) {
-            this.turn(angle + 2 * Math.PI);
-        }
+        assert isValidAngle(Math.abs((this.getHeading() + angle) % (2*Math.PI)));
+        this.setHeading(Math.abs((this.getHeading() + angle) % (2*Math.PI)));
     }
 
     //Radius
-    //TODO Implement Defensive style!
-
     private double minimumRadius = 10;
 
     private final double radius;
@@ -337,12 +350,12 @@ public class Ship {
     /**
      * Returns true if and only if the given radius is larger than the minimum radius.
      *
+     * @param   radius
+     *          The radius which validity will be checked.
      */
     public boolean isValidRadius(double radius){return (radius >= this.minimumRadius || Double.isNaN(radius));}
 
     // Collision detection
-    // TODO check defensive style!
-
     /**
      * Returns the distance between two ships.
      *
@@ -399,8 +412,7 @@ public class Ship {
             double sigma = this.getRadius() + other.getRadius();
             double d = deltaV.scalarProduct(deltaR) * deltaV.scalarProduct(deltaR)
                     - deltaV.scalarProduct(deltaV) * (deltaR.scalarProduct(deltaR) - sigma * sigma);
-
-
+            
             return  !(deltaV.scalarProduct(deltaR) >= 0 || d <= 0 || this.overlap(other));
 
         }catch (NullPointerException e){
@@ -463,13 +475,13 @@ public class Ship {
             } else {
                 double deltaT = -(deltaV.scalarProduct(deltaR) + Math.sqrt(d)) / deltaV.scalarProduct(deltaV);
 
-                double newCoordXthis = this.getPosition().getX() + deltaT * this.getVelocity().getX();
-                double newCoordYthis = this.getPosition().getY() + deltaT * this.getVelocity().getY();
-                Vector newPositionThis = new Vector(newCoordXthis, newCoordYthis);
+                double newThisCoordX = this.getPosition().getX() + deltaT * this.getVelocity().getX();
+                double newThisCoordY = this.getPosition().getY() + deltaT * this.getVelocity().getY();
+                Vector newPositionThis = new Vector(newThisCoordX, newThisCoordY);
 
-                double newCoordXother = other.getPosition().getX() + deltaT * other.getVelocity().getX();
-                double newCoordYother = other.getPosition().getY() + deltaT * other.getVelocity().getY();
-                Vector newPositionOther = new Vector(newCoordXother, newCoordYother);
+                double newOtherCoordX = other.getPosition().getX() + deltaT * other.getVelocity().getX();
+                double newOtherCoordY = other.getPosition().getY() + deltaT * other.getVelocity().getY();
+                Vector newPositionOther = new Vector(newOtherCoordX, newOtherCoordY);
 
                 Vector pointingVector = newPositionOther.sum(newPositionThis.resizeVector(-1)).normalize();
 
@@ -478,7 +490,6 @@ public class Ship {
         }catch (NullPointerException e){
             throw new IllegalArgumentException("The other ship does not exist!");
         }
-
     }
 
     /**
@@ -513,11 +524,4 @@ public class Ship {
         return deltaV.scalarProduct(deltaR) * deltaV.scalarProduct(deltaR)
                 - deltaV.scalarProduct(deltaV) * (deltaR.scalarProduct(deltaR) - sigma * sigma);
     }
-
-
-
 }
-	   
-			  
-   
-   
