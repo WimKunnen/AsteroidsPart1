@@ -16,6 +16,10 @@ import be.kuleuven.cs.som.taglet.*;
  * @invar   The radius will always be greater or equal to th minimum radius.
  *          | isValidRadius()
  *
+ * @invar   The maximum velocity of the ship shall always be smaller or equal to the speed of light.
+ *          | getMaximumVelocity() <= speedOfLight
+ *
+ *
  *
  * @author  Wim Kunnen and Maarten Doclo
  *
@@ -73,7 +77,7 @@ public class Ship {
      *
      * @throws  IllegalArgumentException
      *          The given radius is not a valid radius for any ship.
-     *          | (!isValidRadius(radius)
+     *          | (!isValidRadius(radius))
      */
     public Ship(double x, double y, double velocityX, double velocityY, double radius, double heading)
             throws IllegalArgumentException{
@@ -165,7 +169,8 @@ public class Ship {
     }
 
     /**
-     * Returns true if and only if the given time difference is nonnegative.
+     * @return True if and only if the given time difference is nonnegative.
+     *         | result == timeDifference >= 0
      *
      * @param   timeDifference
      *          The difference in time between two moments used in the thrust() method.
@@ -359,8 +364,8 @@ public class Ship {
     public double getRadius(){return this.radius;}
 
     /**
-     * Returns true if and only if the given radius is larger than the minimum radius.
-     *
+     * @return True if and only if the given radius is larger than the minimum radius.
+     *         | (radius >= minimumRadius || Double.isNaN(radius))
      * @param   radius
      *          The radius which validity will be checked.
      */
