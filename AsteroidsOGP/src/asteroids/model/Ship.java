@@ -19,7 +19,7 @@ import be.kuleuven.cs.som.taglet.*;
  *
  * @author  Wim Kunnen and Maarten Doclo
  *
- * @version 1.1
+ * @version 1.0
  *
  *
  * About the authors and the software:
