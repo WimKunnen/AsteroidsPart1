@@ -1,5 +1,6 @@
 package asteroids.model;
 import be.kuleuven.cs.som.annotate.*;
+import be.kuleuven.cs.som.taglet.*;
 
 
 /**
@@ -18,7 +19,7 @@ import be.kuleuven.cs.som.annotate.*;
  *
  * @author  Wim Kunnen and Maarten Doclo
  *
- * @version 1.1
+ * @version 1.0
  *
  *
  * About the authors and the software:
@@ -319,8 +320,8 @@ public class Ship {
      * @param   angle
      *          The angle between the ship's direction and the x-axis.
      *
-     * @return  True if and only if the angle is between 0 and 4*PI.
-     *          | result == ((this.getHeading() + angle < 4 * Math.PI) && (0 <= this.getHeading() + angle))
+     * @return  True if and only if the angle is between 0 and 2 * π.
+     *          | result == ((this.getHeading() + angle < 2 * Math.PI) && (0 <= this.getHeading() + angle))
      */
     public boolean isValidAngle(double angle){return ((angle < 2 * Math.PI) && (0 <= angle));}
 
@@ -330,14 +331,13 @@ public class Ship {
      * @param   angle
      *          The angle by which the heading is increased.
      *
-     * @post    The heading is increased by the given angle.
-     *          | new.getHeading() == this.getHeading + angle
-     *
-     * @post    If the new angle is greater than 2 * PI or smaller than 0, it is changed to an angle between 0 and 2 * PI.
+     * @post    The heading is increased by the given angle modulo 2 * π.
+     *          | new.getHeading() == (this.getHeading + angle) % 2 * Math.PI
      */
     public void turn(double angle) {
-        assert isValidAngle(Math.abs((this.getHeading() + angle) % (2*Math.PI)));
-        this.setHeading(Math.abs((this.getHeading() + angle) % (2*Math.PI)));
+        double newAngle = Math.abs((this.getHeading() + angle) % (2 * Math.PI));
+        assert isValidAngle(newAngle);
+        this.setHeading(newAngle);
     }
 
     //Radius

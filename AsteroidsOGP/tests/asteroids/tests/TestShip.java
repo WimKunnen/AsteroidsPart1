@@ -138,6 +138,8 @@ public class TestShip {
 	 * | timeDifference < 0.
 	 *
 	 * @throws 	Exception
+	 * 			An exception is thrown if the time difference is less than zero.
+	 * 			| timeDifference < 0
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void move_IllegalCase() throws Exception {
