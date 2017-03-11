@@ -17,6 +17,9 @@ public class TestVector {
     private static Vector v = new Vector(3,4);
     private static Vector x = new Vector(2,3);
     private static Vector h = new Vector(1,2);
+    private static final double EPSILON = 0.0001;
+    private static double[] array1 = new double[]{3,4};
+    private static double[] array2 = new double[]{2,3};
 
     /**
      * A method which tests the getX() method from the Vector class.
@@ -99,5 +102,11 @@ public class TestVector {
     public void testScalarProduct(){
         assertTrue(0 == u.scalarProduct(v));
         assertTrue(11 == h.scalarProduct(v));
+    }
+
+    @Test
+    public void testGetValues(){
+        assertArrayEquals(array1, v.getValues(), EPSILON);
+        assertArrayEquals(array2, x.getValues(), EPSILON);
     }
 }

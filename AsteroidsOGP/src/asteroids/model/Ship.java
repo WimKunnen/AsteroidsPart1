@@ -61,16 +61,16 @@ public class Ship {
      *          The initial heading of the new ship.
      *
      * @post    The new x coordinate is equal to x.
-     *          | new.getPosition.getX() == x
+     *          | new.getPosition().getX() == x
      *
      * @post    The new y coordinate is equal to y.
-     *          | new.getPosition.getY() == y
+     *          | new.getPosition().getY() == y
      *
      * @post    The new velocity along the x axis is equal to velocityX.
-     *          | new.getVelocity.getX() == velocityX
+     *          | new.getVelocity().getX() == velocityX
      *
      * @post    The new velocity along the y axis is equal to velocityY.
-     *          | new.getVelocity.getY() == velocityY
+     *          | new.getVelocity().getY() == velocityY
      *
      * @post    The new radius is equal to radius.
      *          | new.getRadius() == radius
@@ -78,6 +78,10 @@ public class Ship {
      * @throws  IllegalArgumentException
      *          The given radius is not a valid radius for any ship.
      *          | (!isValidRadius(radius))
+     *
+     * @throws   IllegalArgumentException
+     *           Throws an exception if either x or y is equal to NaN.
+     *           | (Double.isNaN(x) ||  Double.isNaN(y))
      */
     public Ship(double x, double y, double velocityX, double velocityY, double radius, double heading)
             throws IllegalArgumentException{
@@ -116,8 +120,8 @@ public class Ship {
      */
     public Ship(){
 
-        setPosition(new Vector());
-        this.radius = minimumRadius;
+        this.setPosition(new Vector());
+        this.radius = this.minimumRadius;
         this.setMaximumVelocity(this.speedOfLight);
         this.setVelocity(new Vector());
         this.setHeading(0);
@@ -125,10 +129,7 @@ public class Ship {
     }
 
     //Position:
-    /**
-     * Vector variable registering the position of this ship.
-     */
-    private Vector position = new Vector();
+    private Vector position;
 
     /**
      * Changes the current position vector to a new position vector.
@@ -141,13 +142,17 @@ public class Ship {
      */
 
     @Model
-    private void setPosition(Vector newPosition){this.position = newPosition;}
+    private void setPosition(Vector newPosition){
+        this.position = newPosition;
+    }
 
     /**
      * Returns the position vector of the ship.
      */
     @Basic
-    public Vector getPosition(){return position;}
+    public Vector getPosition(){
+        return position;
+    }
 
     //Move
     /**
@@ -162,7 +167,7 @@ public class Ship {
      */
     public void move(double timeDifference) throws IllegalArgumentException{
         if(isValidTimeDifference(timeDifference)){
-            setPosition(this.position.sum(velocity.resizeVector(timeDifference)));
+            setPosition(this.getPosition().sum(getVelocity().resizeVector(timeDifference)));
         }else{
             throw new IllegalArgumentException();
         }
@@ -217,8 +222,17 @@ public class Ship {
      *          The new maximum velocity
      *
      * @post    If the given velocity is smaller or equal to speedOfLight and nonegative, the new maximum velocity is set at the given velocity.
+     *          |if(velocity <= speedOfLight && 0 <= velocity) then
+     *          |   this.maximumVelocity = velocity
+     *          |   this.maximumVelocitySquared = velocity * velocity
      *          If the given velocity is greater than speedOfLight, the new maximum velocity is set at the speedOfLight.
+     *          |if(velocity > speedOfLight) then
+     *          |   this.maximumVelocity = speedOfLight
+     *          |   this.maximumVelocitySquared = speedOfLightSquared
      *          Else, the new maximum velocity is set at 0.
+     *          |Else
+     *          |   this.maximumVelocity = 0
+     *          |   this.maximumVelocitySquared = 0
      *          Thus the square of the maximum velocity changes accordingly.
      */
 
@@ -238,7 +252,7 @@ public class Ship {
     /**
      * Returns the velocity vector.
      */
-    private Vector velocity = new Vector();
+    private Vector velocity;
 
     /**
      * The new velocity is set at the given velocity.
@@ -385,9 +399,10 @@ public class Ship {
 
     public double getDistanceBetween(Ship other) throws IllegalArgumentException{
         if(other != null){
-            return Math.sqrt((this.getPosition().getX() - other.getPosition().getX()) * (this.getPosition().getX() - other.getPosition().getX())
-                    + (this.getPosition().getY() - other.getPosition().getY()) * (this.getPosition().getY() - other.getPosition().getY()))
-                    - (this.getRadius() + other.getRadius());
+            double xDifference = (this.getPosition().getX() - other.getPosition().getX());
+            double yDifference = (this.getPosition().getY() - other.getPosition().getY());
+            double radiusDifference = this.getRadius() + other.getRadius();
+            return Math.sqrt( xDifference * xDifference + yDifference * yDifference) - radiusDifference;
         }else{
             throw new IllegalArgumentException("Not an existing ship!");
         }
@@ -444,8 +459,8 @@ public class Ship {
      * @param other
      *        | The other ship
      *
-     * @throws IllegalArgumentException
-     *        | The other ship does not exist
+     * @throws NullPointerException
+     *        The other ship does not exist
      *        | other == null
      */
 
@@ -474,7 +489,7 @@ public class Ship {
      *          |the other ship
      *
      * @throws  IllegalArgumentException
-     *          |The other ship does not exist
+     *          The other ship does not exist
      *          | other == null
      */
 
