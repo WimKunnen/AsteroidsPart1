@@ -19,8 +19,8 @@
       <file leaf-file-name="Ship.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AsteroidsOGP/src/asteroids/model/Ship.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1804">
-              <caret line="555" column="96" lean-forward="true" selection-start-line="555" selection-start-column="96" selection-end-line="555" selection-end-column="96" />
+            <state relative-caret-position="393">
+              <caret line="457" column="52" lean-forward="true" selection-start-line="457" selection-start-column="52" selection-end-line="457" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4850#4851#0" expanded="true" />
@@ -653,8 +653,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AsteroidsOGP/src/asteroids/model/Ship.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1804">
-          <caret line="555" column="96" lean-forward="true" selection-start-line="555" selection-start-column="96" selection-end-line="555" selection-end-column="96" />
+        <state relative-caret-position="393">
+          <caret line="457" column="52" lean-forward="true" selection-start-line="457" selection-start-column="52" selection-end-line="457" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4850#4851#0" expanded="true" />

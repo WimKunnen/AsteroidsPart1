@@ -455,6 +455,7 @@ public class Ship {
 
     /**
      * Returns the time it takes for two ships to collide.
+     * This is a finite number if they ever collide.
      *
      * @param other
      *        | The other ship
