@@ -120,11 +120,7 @@ public class Ship {
     }
 
     //Position:
-    private double coordX;
-
-    private double coordY;
-
-    private Vector position = new Vector(coordX, coordY);
+    private Vector position = new Vector();
 
     /**
      * Changes the current position vector to a new position vector.
@@ -224,14 +220,10 @@ public class Ship {
         }
     }
 
-    private double velocityX;
-
-    private double velocityY;
-
     /**
      * Returns the velocity vector.
      */
-    private Vector velocity = new Vector(velocityX, velocityY);
+    private Vector velocity = new Vector();
 
     /**
      * The new velocity is set at the given velocity.
@@ -412,7 +404,7 @@ public class Ship {
             double sigma = this.getRadius() + other.getRadius();
             double d = deltaV.scalarProduct(deltaR) * deltaV.scalarProduct(deltaR)
                     - deltaV.scalarProduct(deltaV) * (deltaR.scalarProduct(deltaR) - sigma * sigma);
-            
+
             return  !(deltaV.scalarProduct(deltaR) >= 0 || d <= 0 || this.overlap(other));
 
         }catch (NullPointerException e){

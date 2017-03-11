@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="779da06e-14df-4405-8223-1cd0624a41df" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AsteroidsOGP/asteroids/facade/Facade.class" afterPath="$PROJECT_DIR$/out/production/AsteroidsOGP/asteroids/facade/Facade.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AsteroidsOGP/asteroids/model/Ship.class" afterPath="$PROJECT_DIR$/out/production/AsteroidsOGP/asteroids/model/Ship.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AsteroidsOGP/asteroids/model/Vector.class" afterPath="$PROJECT_DIR$/out/production/AsteroidsOGP/asteroids/model/Vector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/AsteroidsOGP/asteroids/tests/TestShip.class" afterPath="$PROJECT_DIR$/out/test/AsteroidsOGP/asteroids/tests/TestShip.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/AsteroidsOGP/asteroids/tests/TestVector.class" afterPath="$PROJECT_DIR$/out/test/AsteroidsOGP/asteroids/tests/TestVector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/asteroids/facade/Facade.java" afterPath="$PROJECT_DIR$/src/asteroids/facade/Facade.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/asteroids/model/Ship.java" afterPath="$PROJECT_DIR$/src/asteroids/model/Ship.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/asteroids/model/Vector.java" afterPath="$PROJECT_DIR$/src/asteroids/model/Vector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/asteroids/tests/TestShip.java" afterPath="$PROJECT_DIR$/tests/asteroids/tests/TestShip.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,8 +60,8 @@
       <file leaf-file-name="Ship.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/asteroids/model/Ship.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6120">
-              <caret line="414" column="12" lean-forward="false" selection-start-line="414" selection-start-column="12" selection-end-line="414" selection-end-column="12" />
+            <state relative-caret-position="-3105">
+              <caret line="121" column="15" lean-forward="false" selection-start-line="121" selection-start-column="15" selection-end-line="121" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -390,7 +381,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
   </component>
-  <component name="RunManager" selected="JUnit.TestShip">
+  <component name="RunManager" selected="Application.Part1">
     <configuration default="false" name="TestShip" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -937,9 +928,9 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.TestShip" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.Part1TestPartial" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Part1" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Part1" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TestShip" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.Part1TestPartial" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.TestShip.Something" />
       </list>
     </recent_temporary>
@@ -959,7 +950,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1489230337558</updated>
-      <workItem from="1489230338774" duration="3090000" />
+      <workItem from="1489230338774" duration="3305000" />
     </task>
     <servers />
   </component>
@@ -985,18 +976,18 @@
     <history-entry file="TestShip - 2017.03.11 at 12h 55m 23s.xml">
       <configuration name="TestShip" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestShip_Something - 2017.03.11 at 12h 35m 43s.xml">
-      <configuration name="TestShip.Something" configurationId="JUnit" />
+    <history-entry file="TestShip - 2017.03.11 at 13h 00m 11s.xml">
+      <configuration name="TestShip" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestShip_Something - 2017.03.11 at 12h 36m 00s.xml">
-      <configuration name="TestShip.Something" configurationId="JUnit" />
+    <history-entry file="TestShip - 2017.03.11 at 13h 01m 24s.xml">
+      <configuration name="TestShip" configurationId="JUnit" />
     </history-entry>
     <history-entry file="TestShip_Something - 2017.03.11 at 12h 37m 27s.xml">
       <configuration name="TestShip.Something" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3090000" />
+    <option name="totallyTimeSpent" value="3305000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1011,7 +1002,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282353" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3282353" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -1121,8 +1112,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/asteroids/model/Ship.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6120">
-          <caret line="414" column="12" lean-forward="false" selection-start-line="414" selection-start-column="12" selection-end-line="414" selection-end-column="12" />
+        <state relative-caret-position="-3105">
+          <caret line="121" column="15" lean-forward="false" selection-start-line="121" selection-start-column="15" selection-end-line="121" selection-end-column="15" />
           <folding />
         </state>
       </provider>
