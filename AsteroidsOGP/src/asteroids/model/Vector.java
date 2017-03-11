@@ -37,8 +37,14 @@ public class Vector {
         this.y = 0;
     }
 
+    /**
+     * Variable registering the x component of this vector.
+     */
     private final double x;
 
+    /**
+     * Variable registering the y component of this vector.
+     */
     private final double y;
 
     /**
@@ -65,7 +71,7 @@ public class Vector {
      * @param   other
      *          The other vector which will be used to calculate a scalar product of two vectors.
      */
-    @Basic
+
     public double scalarProduct(Vector other){
         return this.getX() * other.getX() + this.getY() * other.getY();
     }
@@ -73,7 +79,7 @@ public class Vector {
     /**
      * Returns the square of the length of the vector.
      */
-    @Basic
+
     public double vectorLengthSquared(){
         return this.getX() * this.getX() + this.getY() * this.getY();
     }
@@ -81,7 +87,7 @@ public class Vector {
     /**
      * Returns the length of the vector.
      */
-    @Basic
+
     public double vectorLength(){
         return Math.sqrt(this.vectorLengthSquared());
     }
@@ -93,7 +99,7 @@ public class Vector {
      * @param   other
      *          The other vector which will be used to calculate the sum of two vectors.
      */
-    @Basic
+
     public Vector sum(Vector other){
         return new Vector(this.getX() + other.getX(), this.getY() + other.getY());
     }
@@ -107,7 +113,7 @@ public class Vector {
      * |else
      * |     return this
      */
-    @Basic
+
     public Vector normalize() {
         if(this.vectorLengthSquared() > 0)
             return new Vector(this.getX() / this.vectorLength(), this.getY() / this.vectorLength());
@@ -124,7 +130,7 @@ public class Vector {
      * |else
      * |    new == this
      */
-    @Basic
+
     public Vector resizeVector(double factor){
 
         if(this.vectorLengthSquared() >= 0)
