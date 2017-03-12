@@ -16,6 +16,10 @@ import be.kuleuven.cs.som.taglet.*;
  * @invar   The radius will always be greater or equal to th minimum radius.
  *          | isValidRadius()
  *
+ * @invar   The maximum velocity of the ship shall always be smaller or equal to the speed of light.
+ *          | getMaximumVelocity() <= speedOfLight
+ *
+ *
  *
  * @author  Wim Kunnen and Maarten Doclo
  *
@@ -72,7 +76,7 @@ public class Ship {
      *
      * @throws  IllegalArgumentException
      *          The given radius is not a valid radius for any ship.
-     *          | (!isValidRadius(radius)
+     *          | (!isValidRadius(radius))
      *
      * @throws   IllegalArgumentException
      *           Throws an exception if either x or y is equal to NaN.
@@ -116,7 +120,7 @@ public class Ship {
     public Ship(){
 
         this.setPosition(new Vector());
-        this.radius = this.minimumRadius;
+        this.radius = minimumRadius;
         this.setMaximumVelocity(this.speedOfLight);
         this.setVelocity(new Vector());
         this.setHeading(0);
@@ -169,7 +173,8 @@ public class Ship {
     }
 
     /**
-     * Returns true if and only if the given time difference is nonnegative.
+     * @return True if and only if the given time difference is nonnegative.
+     *         | result == timeDifference >= 0
      *
      * @param   timeDifference
      *          The difference in time between two moments used in the thrust() method.
@@ -290,15 +295,16 @@ public class Ship {
      *          If the given velocity is smaller than zero, the velocity is unchanged.
      */
     public void thrust(double addedVelocitySize){
+        if (addedVelocitySize < 0) {
+            addedVelocitySize = 0;
+        }
         Vector addedVelocity = new Vector(addedVelocitySize * Math.cos(this.getHeading()),
                 addedVelocitySize * Math.sin(this.getHeading()));
-        Vector newVelocity = this.getVelocity().sum(addedVelocity);
-        if(addedVelocity.vectorLengthSquared() >= 0){
-            this.setVelocity(newVelocity);
-        }else{
-            this.thrust(0);
+        Vector newVelocity = this.velocity.sum(addedVelocity);
+        this.setVelocity(newVelocity);
+
+
         }
-    }
 
     // Heading
 
@@ -406,8 +412,8 @@ public class Ship {
         if(other != null){
             double xDifference = (this.getPosition().getX() - other.getPosition().getX());
             double yDifference = (this.getPosition().getY() - other.getPosition().getY());
-            double radiusDifference = this.getRadius() + other.getRadius();
-            return Math.sqrt( xDifference * xDifference + yDifference * yDifference) - radiusDifference;
+            double radiusSum = this.getRadius() + other.getRadius();
+            return Math.sqrt( xDifference * xDifference + yDifference * yDifference) - radiusSum;
         }else{
             throw new IllegalArgumentException("Not an existing ship!");
         }
@@ -446,9 +452,8 @@ public class Ship {
 
             Vector deltaV = this.deltaV(other);
             Vector deltaR = this.deltaR(other);
-            double sigma = this.getRadius() + other.getRadius();
-            double d = deltaV.scalarProduct(deltaR) * deltaV.scalarProduct(deltaR)
-                    - deltaV.scalarProduct(deltaV) * (deltaR.scalarProduct(deltaR) - sigma * sigma);
+            double sigma = this.sigma(other);
+            double d = d(deltaV, deltaR, sigma);
 
             return  !(deltaV.scalarProduct(deltaR) >= 0 || d <= 0 || this.overlap(other));
     }

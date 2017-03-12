@@ -144,6 +144,7 @@ public class TestShip {
 		assertTrue(ship1.isValidRadius(10));
 		assertTrue(ship1.isValidRadius(100));
 		assertFalse(ship1.isValidRadius(5));
+		assertFalse(ship1.isValidRadius(Math.sqrt(-1)));
 	}
 
 	/**
@@ -193,6 +194,9 @@ public class TestShip {
 	@Test
 	public void testThrust(){
 		ship2.thrust(10);
+		assertEquals(20.0,ship2.getVelocity().getX(),EPSILON);
+		assertEquals(10.0,ship2.getVelocity().getY(),EPSILON);
+		ship2.thrust(-10);
 		assertEquals(20.0,ship2.getVelocity().getX(),EPSILON);
 		assertEquals(10.0,ship2.getVelocity().getY(),EPSILON);
 
