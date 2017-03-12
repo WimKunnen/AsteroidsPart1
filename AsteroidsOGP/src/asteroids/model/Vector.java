@@ -49,7 +49,6 @@ public class Vector {
 
     /**
      * Returns the x component of the vector.
-     *
      */
     @Basic @Immutable
     public double getX(){
@@ -58,7 +57,6 @@ public class Vector {
 
     /**
      * Returns the y component of the vector.
-     *
      */
     @Basic @Immutable
     public double getY(){

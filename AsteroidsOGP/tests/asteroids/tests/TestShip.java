@@ -122,6 +122,20 @@ public class TestShip {
 	}
 
 	/**
+	 * A test suit which test whether or not the initializer of the Ship class throws the correct exception if the ship
+	 * is initialized with a radius of NaN.
+	 *
+	 * @throws 	Exception
+	 * 			An exception is thrown if the ship is initialized with a radius of NaN.
+	 * 			If the test succeeds, the exception is thrown.
+	 */
+	@Test(expected=IllegalArgumentException.class)
+	public void radiusNaN() throws Exception {
+		ship1 = new Ship(1.5,15.0,10.0,20.0,Double.NaN,Math.PI);
+
+	}
+
+	/**
 	 * A test suit which tests the isValidRadius() method from the Ship class.
 	 * It involves the Ship ship1 and a radius.
 	 */

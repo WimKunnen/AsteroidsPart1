@@ -21,7 +21,6 @@ import be.kuleuven.cs.som.taglet.*;
  *
  * @version 1.0
  *
- *
  * About the authors and the software:
  *  Wim Kunnen:     Studies: Ingenieurswetenschappen: Elektrotechniek - Computer Wetenschappen.
  *  Maarten Doclo:  Studies: Ingenieurswetenschappen: Computer Wetenschappen - Elektrotechniek.
@@ -175,7 +174,9 @@ public class Ship {
      * @param   timeDifference
      *          The difference in time between two moments used in the thrust() method.
      */
-    private boolean isValidTimeDifference(double timeDifference){return timeDifference >= 0;}
+    private boolean isValidTimeDifference(double timeDifference){
+        return timeDifference >= 0;
+    }
 
     //Velocity:
     /**
@@ -291,7 +292,7 @@ public class Ship {
     public void thrust(double addedVelocitySize){
         Vector addedVelocity = new Vector(addedVelocitySize * Math.cos(this.getHeading()),
                 addedVelocitySize * Math.sin(this.getHeading()));
-        Vector newVelocity = this.velocity.sum(addedVelocity);
+        Vector newVelocity = this.getVelocity().sum(addedVelocity);
         if(addedVelocity.vectorLengthSquared() >= 0){
             this.setVelocity(newVelocity);
         }else{
@@ -302,15 +303,17 @@ public class Ship {
     // Heading
 
     /**
-     * Varialbe registering the orientation of this ship.
+     * Variable registering the orientation of this ship.
      */
     private double heading;
 
     /**
-     * Return the heading of the ship.
+     * Returns the heading of the ship.
      */
     @Basic
-    public double getHeading(){return this.heading;}
+    public double getHeading(){
+        return this.heading;
+    }
 
     /**
      * Set the heading at the given angle.
@@ -337,7 +340,9 @@ public class Ship {
      * @return  True if and only if the angle is between 0 and 2 * π.
      *          | result == ((this.getHeading() + angle < 2 * Math.PI) && (0 <= this.getHeading() + angle))
      */
-    public boolean isValidAngle(double angle){return ((angle < 2 * Math.PI) && (0 <= angle));}
+    public boolean isValidAngle(double angle){
+        return ((angle < 2 * Math.PI) && (0 <= angle));
+    }
 
     /**
      * Increases the heading of the ship by a given angle.
@@ -346,7 +351,7 @@ public class Ship {
      *          The angle by which the heading is increased.
      *
      * @post    The heading is increased by the given angle modulo 2 * π.
-     *          | new.getHeading() == (this.getHeading + angle) % 2 * Math.PI
+     *          | new.getHeading() == (this.getHeading + angle) % (2 * Math.PI)
      */
     public void turn(double angle) {
         double newAngle = Math.abs((this.getHeading() + angle) % (2 * Math.PI));
@@ -370,19 +375,24 @@ public class Ship {
      */
     @Basic
     @Immutable
-    public double getRadius(){return this.radius;}
+    public double getRadius(){
+        return this.radius;
+    }
 
     /**
-     * Returns true if and only if the given radius is larger than the minimum radius.
+     * Returns true if and only if the given radius is larger than the minimum radius and not NaN.
      *
      * @param   radius
      *          The radius which validity will be checked.
      */
-    public boolean isValidRadius(double radius){return (radius >= minimumRadius || Double.isNaN(radius));}
+    public boolean isValidRadius(double radius){
+        return (radius >= minimumRadius && ! Double.isNaN(radius));
+    }
 
     // Collision detection
     /**
      * Returns the distance between two ships.
+     * | return sqrt(xDifference * xDifference + yDifference * yDifference) - radiusDifference
      *
      * @param   other
      *          The second ship.
@@ -405,6 +415,7 @@ public class Ship {
 
     /**
      * Returns true if and only if the distance between the two ships is nonnegative.
+     * | return getDistanceBetween < 0
      *
      * @param   other
      *          The second ship.
@@ -422,7 +433,7 @@ public class Ship {
     }
 
     /**
-     * Returns true if and only if the ships will collide at some point.
+     * Returns true if and only if the ships will collide at some point in time.
      *
      * @param   other
      *          The other ship
@@ -431,8 +442,8 @@ public class Ship {
      *          The other ship does not exist.
      *          | other == null
      */
-    public boolean willCollide(Ship other) throws IllegalArgumentException{
-        try {
+    public boolean willCollide(Ship other) throws NullPointerException{
+
             Vector deltaV = this.deltaV(other);
             Vector deltaR = this.deltaR(other);
             double sigma = this.getRadius() + other.getRadius();
@@ -440,16 +451,17 @@ public class Ship {
                     - deltaV.scalarProduct(deltaV) * (deltaR.scalarProduct(deltaR) - sigma * sigma);
 
             return  !(deltaV.scalarProduct(deltaR) >= 0 || d <= 0 || this.overlap(other));
-
-        }catch (NullPointerException e){
-            throw new IllegalArgumentException("The other ship does not exist!");
-        }
     }
 
 
 
     /**
-     * Returns the time it takes for two ships to collide.
+     * If the ships collide, return the time it takes for two ships to collide.
+     * | if (willCollide) then
+     * |    return timeToCollision
+     * Else return positive infinity.
+     * | else
+     * |    return Double.POSITIVE_INFINITY
      *
      * @param other
      *        | The other ship
@@ -460,25 +472,26 @@ public class Ship {
      */
 
     public double getTimeToCollision(Ship other) throws NullPointerException{
-        try {
             Vector deltaV = this.deltaV(other);
             Vector deltaR = this.deltaR(other);
             double sigma = this.sigma(other);
             double d = this.d(deltaV, deltaR, sigma);
+            double timeToCollision = -(deltaV.scalarProduct(deltaR) + Math.sqrt(d)) / deltaV.scalarProduct(deltaV);
 
             if (this.willCollide(other)) {
-                return -(deltaV.scalarProduct(deltaR) + Math.sqrt(d)) / deltaV.scalarProduct(deltaV);
+                return timeToCollision;
             } else {
                 return Double.POSITIVE_INFINITY;
             }
-
-        }catch (NullPointerException e){
-            throw new NullPointerException("The other ship does not exist!");
-        }
     }
 
     /**
-     * Returns the position at which the ships will collide.
+     * If the ships will collide, the position of the hull where the ships hit is returned.
+     * | if (willCollide()) then
+     * |    return hullPosition
+     * Else, null is returned.
+     * |else
+     * |    return null
      *
      * @param    other
      *          |the other ship
@@ -488,18 +501,12 @@ public class Ship {
      *          | other == null
      */
 
-    public Vector getCollisionPosition(Ship other) throws IllegalArgumentException {
-        try {
-            Vector deltaV = this.deltaV(other);
-            Vector deltaR = this.deltaR(other);
-            double sigma = this.sigma(other);
-            double d = this.d(deltaV, deltaR, sigma);
+    public Vector getCollisionPosition(Ship other) throws NullPointerException {
 
             if (!this.willCollide(other)) {
                 return null;
-
             } else {
-                double deltaT = -(deltaV.scalarProduct(deltaR) + Math.sqrt(d)) / deltaV.scalarProduct(deltaV);
+                double deltaT = getTimeToCollision(other);
 
                 double newThisCoordX = this.getPosition().getX() + deltaT * this.getVelocity().getX();
                 double newThisCoordY = this.getPosition().getY() + deltaT * this.getVelocity().getY();
@@ -510,41 +517,35 @@ public class Ship {
                 Vector newPositionOther = new Vector(newOtherCoordX, newOtherCoordY);
 
                 Vector pointingVector = newPositionOther.sum(newPositionThis.resizeVector(-1)).normalize();
+                Vector hullPosition = newPositionThis.sum(pointingVector.resizeVector(this.getRadius()));
 
-                return newPositionThis.sum(pointingVector.resizeVector(this.getRadius()));
+                return hullPosition;
             }
-        }catch (NullPointerException e){
-            throw new IllegalArgumentException("The other ship does not exist!");
-        }
     }
 
     /**
-     * Returns the difference of the velocity vectors of two ships.
-     *
+     * Returns the vectorial difference of the velocity vectors of two ships.
      */
     private Vector deltaV(Ship other){
-        return other.velocity.sum(this.velocity.resizeVector(-1));
+        return other.getVelocity().sum(this.getVelocity().resizeVector(-1));
     }
 
     /**
      * Returns the vectorial difference of the centers of the two ships.
-     *
      */
     private Vector deltaR(Ship other){
-        return other.position.sum(this.position.resizeVector(-1));
+        return other.getPosition().sum(this.getPosition().resizeVector(-1));
     }
 
     /**
      * Returns the sum of the radii of the ships.
-     *
      */
     private double sigma(Ship other){
         return this.getRadius() + other.getRadius();
     }
 
     /**
-     * Returns the constant d.
-     *
+     * Returns the constant d, which was defined in the assignment.
      */
     private double d(Vector deltaV, Vector deltaR, double sigma){
         return deltaV.scalarProduct(deltaR) * deltaV.scalarProduct(deltaR)
