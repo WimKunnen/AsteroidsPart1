@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="779da06e-14df-4405-8223-1cd0624a41df" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/asteroids/model/Ship.java" afterPath="$PROJECT_DIR$/src/asteroids/model/Ship.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -48,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/src/asteroids/model/Ship.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="228">
-              <caret line="465" column="43" lean-forward="false" selection-start-line="465" selection-start-column="43" selection-end-line="465" selection-end-column="43" />
+              <caret line="465" column="30" lean-forward="false" selection-start-line="465" selection-start-column="30" selection-end-line="465" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -972,7 +971,7 @@
       <workItem from="1489246727311" duration="546000" />
       <workItem from="1489311922117" duration="1532000" />
       <workItem from="1489313710851" duration="17000" />
-      <workItem from="1489315795892" duration="250000" />
+      <workItem from="1489315795892" duration="499000" />
     </task>
     <servers />
   </component>
@@ -1009,7 +1008,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9218000" />
+    <option name="totallyTimeSpent" value="9467000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1464,7 +1463,7 @@
     <entry file="file://$PROJECT_DIR$/src/asteroids/model/Ship.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
-          <caret line="465" column="43" lean-forward="false" selection-start-line="465" selection-start-column="43" selection-end-line="465" selection-end-column="43" />
+          <caret line="465" column="30" lean-forward="false" selection-start-line="465" selection-start-column="30" selection-end-line="465" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

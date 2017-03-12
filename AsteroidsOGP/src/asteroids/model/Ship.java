@@ -461,9 +461,9 @@ public class Ship {
 
 
     /**
-     * Returns the time it takes for two ships to collide.
-     * If the ships will collide, a finite number is returned.
-     * Else, positive infinity is returned.
+     * If two ships will collide, the time it takes them to collide is returned.
+     * | if (willCollide) then
+     * |    return timeToCollision
      *
      * @param other
      *        | The other ship
