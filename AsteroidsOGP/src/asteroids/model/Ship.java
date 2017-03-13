@@ -399,7 +399,7 @@ public class Ship {
     /**
      * Returns the distance between two ships.
      * | return sqrt(xDifference * xDifference + yDifference * yDifference) - radiusDifference
-     *
+     * The distance between a ship and itself is zero.
      * @param   other
      *          The second ship.
      *
@@ -410,18 +410,23 @@ public class Ship {
 
     public double getDistanceBetween(Ship other) throws IllegalArgumentException{
         if(other != null){
-            double xDifference = (this.getPosition().getX() - other.getPosition().getX());
-            double yDifference = (this.getPosition().getY() - other.getPosition().getY());
-            double radiusSum = this.getRadius() + other.getRadius();
-            return Math.sqrt( xDifference * xDifference + yDifference * yDifference) - radiusSum;
+            if (this == other) {
+                return 0;
+            }
+            else {
+                double xDifference = (this.getPosition().getX() - other.getPosition().getX());
+                double yDifference = (this.getPosition().getY() - other.getPosition().getY());
+                double radiusSum = this.getRadius() + other.getRadius();
+                return Math.sqrt(xDifference * xDifference + yDifference * yDifference) - radiusSum;
+            }
         }else{
             throw new IllegalArgumentException("Not an existing ship!");
         }
     }
 
     /**
-     * Returns true if and only if the distance between the two ships is nonnegative.
-     * | return getDistanceBetween < 0
+     * Returns true if and only if the distance between the two ships is nonnegative or the two ships are the same.
+     * | return getDistanceBetween < 0 || this == other
      *
      * @param   other
      *          The second ship.
@@ -432,7 +437,7 @@ public class Ship {
      */
     public boolean overlap(Ship other) throws IllegalArgumentException{
         if (other != null) {
-            return this.getDistanceBetween(other) < 0;
+            return this.getDistanceBetween(other) < 0 || this == other;
         }else{
             throw new IllegalArgumentException("Not an existing ship!");
         }

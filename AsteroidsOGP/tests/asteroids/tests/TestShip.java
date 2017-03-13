@@ -208,9 +208,10 @@ public class TestShip {
 	 */
 	@Test
 	public void testGetDistanceBetween() {
+		assertEquals(0.0,ship2.getDistanceBetween(ship2),EPSILON);
 		assertEquals(40.0,ship2.getDistanceBetween(ship3),EPSILON);
-	}
 
+	}
 	/**
 	 * A test suit which tests the overlap() method from the Ship class.
 	 * It involves the Ships ship1 and ship2.
@@ -219,6 +220,7 @@ public class TestShip {
 	public void testOverlap() {
 		assertFalse(ship2.overlap(ship3));
 		assertTrue(ship2.overlap(ship4));
+		assertTrue(ship2.overlap(ship2));
 	}
 
 	/**
